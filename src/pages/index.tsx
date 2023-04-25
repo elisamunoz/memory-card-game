@@ -65,7 +65,7 @@ const IndexPage: React.FC<PageProps> = () => {
     }
 
     // Paired logic
-    
+
   };
 
   const resetGame = () => {
@@ -88,7 +88,7 @@ const IndexPage: React.FC<PageProps> = () => {
             id={tile.id}
             onClick={handleClickTile}
             isFlipped={flippedTiles.includes(tile.id)}
-            isPaired={pairedTiles.includes(tile.id)}
+            isPaired={pairedTiles.includes(tile.value)}
           >{tile.value}</Tile>
           ))}
       </Board>

@@ -2,33 +2,36 @@ import React, { useState } from "react";
 import { Wrapper, CardFront, CardBack, Box1, Box2 } from "./Tile.styles";
 
 interface Props {
+  id: number,
   children: any,
   imageSrc?: string,
   isFlipped?: boolean,
   isPaired?: boolean,
-  onClick: VoidFunction,
+  onClick: (tileId: number) => void,
 }
 
 export const Tile = ({
+  id,
   // imageSrc,
   children,
   isFlipped = false,
   isPaired = false,
   onClick,
 }: Props) => {
-  const [active, setActive] = useState(isFlipped);
+  // const [active, setActive] = useState(isFlipped);
   
   const handleOnClick = () => {
-    setActive(!active);
-    console.log(active)
-    onClick();
+    // setActive(!active);
+    // if (!isFlipped && !isPaired) {
+      onClick(id);
+    // }
   };
 
 
   return (
     <Wrapper
       disabled={isPaired}
-      isFlipped={active}
+      isFlipped={isFlipped}
       onClick={handleOnClick}
     >
       <CardFront>
