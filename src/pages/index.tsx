@@ -21,28 +21,58 @@ const pageStyles = {
 
 const roundFloorOddNumber = (number: number): number => number % 2 === 0 ? number/2 : Math.floor(number/2)
 
-const getTiles = (tilesAmount: number): number[] => {
+type tyleType = {
+  id: number;
+  value: number;
+  img?: string;
+};
+
+const getTiles = (tilesAmount: number): tyleType[] => {
   const tileIds: number[] = Array.from({length: roundFloorOddNumber(tilesAmount)}, (_, i) => i + 1);
   const cloneTiles: number[] = tileIds.concat(tileIds)
   const randomTimes = cloneTiles.sort(() => Math.random() - 0.5);
   
-  return randomTimes;
+  return randomTimes.map((tileId, i) => {
+    return {
+      id: i,
+      value: tileId,
+      img: 'string',
+    }
+  });
 }
 
 const IndexPage: React.FC<PageProps> = () => {
   const [moves, setMoves] = useState(0);
-  
-  const tiles = useMemo(
-    () => getTiles(16), []
-  );
+  const [tiles, setTiles] = useState(getTiles(16));
+  const [flippedTiles, setFlippedTiles] = useState<number[]>([]);
+  const [pairedTiles, setPairedTiles] = useState<number[]>([]);
+  // const tiles = useMemo(
+  //   () => getTiles(16), []
+  // );
 
   const handleClickTile = (tileId: number) => {
-    console.log(`Tile id: ${tileId}`);
     setMoves(moves + 1);
+
+    // Flipp logic
+    if (flippedTiles.length > 1) {
+      setFlippedTiles([])
+    } else {
+      const newFlippedState = [
+        ...flippedTiles,
+        tileId,
+      ]
+      setFlippedTiles(newFlippedState);
+    }
+
+    // Paired logic
+    
   };
 
   const resetGame = () => {
     setMoves(0);
+    setFlippedTiles([]);
+    setPairedTiles([]);
+    // TODO: reset tiles
   }
 
   return (
@@ -52,13 +82,14 @@ const IndexPage: React.FC<PageProps> = () => {
         {`Moves: ${roundFloorOddNumber(moves)}`}
       </ScoreBoard>
       <Board>
-        {tiles.map((tileId, i) => (
+        {tiles.map((tile: tyleType, i) => (
           <Tile
             key={i}
-            onClick={() => handleClickTile(tileId)}
-            isFlipped={tileId === 2}
-            isPaired={tileId === 4}
-          >{tileId}</Tile>
+            id={tile.id}
+            onClick={handleClickTile}
+            isFlipped={flippedTiles.includes(tile.id)}
+            isPaired={pairedTiles.includes(tile.id)}
+          >{tile.value}</Tile>
           ))}
       </Board>
     </main>
