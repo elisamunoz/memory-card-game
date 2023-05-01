@@ -19,16 +19,11 @@ export const Wrapper = styled.button<WraperProps>`
   border: none;
   cursor: pointer;
 
-  .isFlipped {
-    background: purple;
-  }
-
-  ${props => props.disabled && `
-    background: #9BCB3C;
-  `}
-
   ${props => props.isFlipped && `
     background: #89C4FF;
+  `}
+  ${props => props.isPaired && `
+    background: #9BCB3C;
   `}
 `;
 

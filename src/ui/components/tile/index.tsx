@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Wrapper, CardFront, CardBack, Box1, Box2 } from "./Tile.styles";
 
 interface Props {
@@ -18,25 +18,23 @@ export const Tile = ({
   isPaired = false,
   onClick,
 }: Props) => {
-  // const [active, setActive] = useState(isFlipped);
   
   const handleOnClick = () => {
-    // setActive(!active);
-    // if (!isFlipped && !isPaired) {
       onClick(id);
-    // }
   };
 
+  const showFlipped = isFlipped || isPaired;
 
   return (
     <Wrapper
-      disabled={isPaired}
-      isFlipped={isFlipped}
+      disabled={showFlipped}
+      isPaired={isPaired}
+      isFlipped={showFlipped}
       onClick={handleOnClick}
     >
       <CardFront>
         <Box1>
-          {children}
+          {showFlipped && children}
         </Box1>
       </CardFront>
       <CardBack>
