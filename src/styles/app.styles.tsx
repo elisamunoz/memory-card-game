@@ -4,9 +4,10 @@ export const StyledBody = styled.main`
   font-family: -apple-system, Roboto, sans-serif, serif;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  // justify-content: center;
   flex-grow: 1;
 
+  overflow: hidden;
   min-height: 100vh;
   padding: 0;
   margin: 0;

@@ -33,6 +33,10 @@ export const useTiles = (totalTiles: number) => {
   const getTileById = (tileId: TileIdType) => tiles.find(tile => tile.id === tileId) as tileType
   const moves = roundFloorOddNumber(userClicks);
 
+  useEffect(() => {
+   resetGame();
+  }, [totalTiles]);
+
   useEffect(()=> {
     // set paired tiles
     if (flippedTiles.length === 2) {
@@ -61,6 +65,7 @@ export const useTiles = (totalTiles: number) => {
     setFlippedTiles([]);
     setPairedTiles([]);
     setTiles(getTiles(totalTiles));
+    console.log(document.body.offsetWidth)
   }
 
   const handleClickTile = (tileId: TileIdType) => {

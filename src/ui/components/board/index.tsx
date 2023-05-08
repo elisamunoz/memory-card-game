@@ -2,15 +2,17 @@ import * as React from "react";
 import { Wrapper, BoardStyled } from "./Board.styles";
 
 interface Props {
-  children: any
+  children: any,
+  isNormalMode: boolean
 }
 
 export const Board = ({
-  children
+  children,
+  isNormalMode
 }: Props) => {
   return (
     <Wrapper>
-      <BoardStyled>
+      <BoardStyled isNormalMode={isNormalMode}>
         {children}
       </BoardStyled>
     </Wrapper>
